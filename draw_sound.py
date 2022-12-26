@@ -1,15 +1,17 @@
 import librosa
 import librosa.display
 import matplotlib.pyplot as plt
+import os
 
-audio_path = 'file_example_WAV_10MG.wav'
+audio_folder = 'sounds/'
 
-# y = 파형의 amplitude 값
-# sr = sampling rate
-y, sr = librosa.load(audio_path)
+for i in range(len(os.listdir(audio_folder))):
+    # y = 파형의 amplitude 값
+    # sr = sampling rate
+    y, sr = librosa.load(audio_folder + str(i+1) + '.wav')
 
-plt.figure()
-librosa.display.waveshow(y, sr=sr)
-# plt.show()
+    plt.figure()
+    librosa.display.waveshow(y, sr=sr)
+    # plt.show()
 
-plt.savefig('sample4.png')
+    plt.savefig(audio_folder + str(i+1) + '.png')
