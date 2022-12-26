@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인</title>
+  </head>
+  <body align="center">
+    <form action="/register_page">
+      <input type="submit" value="회원가입" />
+    </form>
+    <button id="login">Login</button>
+    <p></p>
+    <div
+      style="height: 200px; width: 300px; background-color: aqua; margin: auto"
+      id="modal"
+      hidden
+    >
+      <p></p>
+      듣는중입니다. 말해주세요.
+      <p></p>
+      <img
+        src="{{url_for('static', filename='img/mic.png')}}"
+        alt="마이크아이콘"
+        style="height: 50%"
+      />
+      <p></p>
+      <button id="complete">완료</button>
+    </div>
+  </body>
+  <script src="{{url_for('static', filename='js/login.js')}}"></script>
+</html>
