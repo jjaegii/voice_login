@@ -1,14 +1,13 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
-import os
 import json
-import librosa
-import librosa.display
-import matplotlib.pyplot as plt
+import sqlite3
 
+from src import convert, sql
+
+SOUND_FOLDER = 'sounds'
 app = Flask(__name__)
-UPLOAD_FOLDER = './sounds'
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 @app.route('/')
 def login_page():
@@ -20,16 +19,12 @@ def register_page():
 
 @app.route('/register', methods=['POST'])
 def register():
-    # print(request.files['passwd'])
     f = request.files['passwd']
-    f.save('sounds/' + secure_filename(f.filename + '.wav'))
-    y, sr = librosa.load(os.path.join(UPLOAD_FOLDER, f.filename + '.wav'))
-
-    plt.figure()
-    librosa.display.waveshow(y, sr=sr)
-    
-    plt.savefig(os.path.join(UPLOAD_FOLDER, f.filename + '.png'))
-
+    # print(f.filename) # 아이디
+    file_path = 'sounds/' + f.filename
+    f.save(file_path + '.wav')
+    convert.run(f.filename + '.wav', 'sounds')
+    sql.insert(f.filename, file_path + '.png')
     return json.dumps({'redirect':'/'})
 
 @app.route('/login', methods=['POST'])
