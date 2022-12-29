@@ -3,8 +3,9 @@ from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import json
 import sqlite3
+import threading
 
-from src import convert, sql
+from src import convert, sql, train
 
 SOUND_FOLDER = 'sounds'
 app = Flask(__name__)
@@ -24,7 +25,11 @@ def register():
     file_path = 'sounds/' + f.filename
     f.save(file_path + '.wav')
     convert.run(f.filename + '.wav', 'sounds')
-    sql.insert(f.filename, file_path + '.png')
+    sql.insert(f.filename, file_path + '/2d+fourier.png')
+    train.run()
+    t1 = threading.Thread(target=train.run)
+    t1.start()
+    t1.join()
     return json.dumps({'redirect':'/'})
 
 @app.route('/login', methods=['POST'])
