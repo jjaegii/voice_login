@@ -1,4 +1,5 @@
 venv/
+model/*.pt
 
 *.pyc
 __pycache__
