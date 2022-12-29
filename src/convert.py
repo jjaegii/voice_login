@@ -30,8 +30,13 @@ def merge(wavfile, path_2d, path_fourier):
     img_2d = cv2.imread(path_2d)
     img_fourier = cv2.imread(path_fourier)
     merged_img = cv2.addWeighted(img_2d, 0.5, img_fourier, 0.5, 0)
-    img_path = os.path.join(SOUND_FOLDER, wavfile.split('.')[0] + '.png')
+    
+    img_folder = os.path.join(SOUND_FOLDER, wavfile.split('.')[0])
+    if not os.path.exists(img_folder):
+        os.mkdir(img_folder)
+    img_path = os.path.join(img_folder, '2d+fourier.png')
     cv2.imwrite(img_path, merged_img)
+    
     os.remove(path_2d)
     os.remove(path_fourier)
     os.remove(os.path.join(SOUND_FOLDER, wavfile))
