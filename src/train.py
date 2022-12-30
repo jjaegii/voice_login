@@ -66,3 +66,5 @@ def run():
                 loss_history.append(loss_contrastive.item())
     
     torch.save(net.state_dict(), 'model/test.pt')
+
+    print('done !')
