@@ -21,6 +21,7 @@ def register_page():
 @app.route('/register', methods=['POST'])
 def register():
     f = request.files['passwd']
+    # print(f.read()) # blob 출력
     # print(f.filename) # 아이디
     file_path = 'sounds/' + f.filename
     f.save(file_path + '.wav')

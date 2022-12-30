@@ -30,13 +30,14 @@ if (navigator.mediaDevices) {
 
       mediaRecorder.ondataavailable = (e) => {
         chunks.push(e.data);
-        console.log(e.data);
-        console.log(chunks[0]);
+        // console.log(e.data);
+        // console.log(chunks[0]);
       };
 
       mediaRecorder.addEventListener("stop", () => {
         console.log("id : " + id.value);
-        console.log("chunk : " + chunks.value);
+        console.log("chunk : " + chunks[0]);
+        // console.log(Object.keys(chunks[0]));
       });
 
       register_btn.addEventListener("click", async () => {
