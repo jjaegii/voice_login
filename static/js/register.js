@@ -12,7 +12,7 @@ if (navigator.mediaDevices) {
     .getUserMedia(constraints)
     .then((stream) => {
       const mediaRecorder = new MediaRecorder(stream);
-      let chunks = [];
+      const chunks = [];
 
       record.addEventListener("click", () => {
         modal.hidden = false;
@@ -28,11 +28,9 @@ if (navigator.mediaDevices) {
         console.log(mediaRecorder.state);
       });
 
-      mediaRecorder.ondataavailable = (e) => {
-        chunks.push(e.data);
-        // console.log(e.data);
-        // console.log(chunks[0]);
-      };
+      mediaRecorder.addEventListener("dataavailable", (event) => {
+        chunks.push(event.data);
+      });
 
       mediaRecorder.addEventListener("stop", () => {
         console.log("id : " + id.value);
@@ -46,7 +44,7 @@ if (navigator.mediaDevices) {
         formData.append("id", id.value);
 
         console.log(formData);
-        formData.append("passwd", chunks[0], id.value);
+        formData.append("passwd", chunks[0], id.value + ".webm");
 
         let response = await fetch("/register", {
           method: "POST",
@@ -54,7 +52,6 @@ if (navigator.mediaDevices) {
           headers: {},
         });
         await response.json().then((result) => {
-          chunks = [];
           var form = document.createElement("form");
           form.setAttribute("method", "get");
           form.setAttribute("action", result.redirect);

@@ -2,8 +2,6 @@ login = document.getElementById("login");
 modal = document.getElementById("modal");
 complete = document.getElementById("complete");
 
-let id = { value: "login_test" };
-
 if (navigator.mediaDevices) {
   const constraints = {
     audio: true,
@@ -12,7 +10,7 @@ if (navigator.mediaDevices) {
     .getUserMedia(constraints)
     .then((stream) => {
       const mediaRecorder = new MediaRecorder(stream);
-      let chunks = [];
+      const chunks = [];
 
       login.addEventListener("click", () => {
         modal.hidden = false;
@@ -26,30 +24,23 @@ if (navigator.mediaDevices) {
         console.log("녹음 끝");
       });
 
-      mediaRecorder.ondataavailable = (e) => {
-        chunks.push(e.data);
-      };
-
-      mediaRecorder.addEventListener("stop", () => {
-        console.log("id : " + id.value);
-        console.log("chunk : " + chunks.value);
+      mediaRecorder.addEventListener("dataavailable", (event) => {
+        chunks.push(event.data);
       });
 
       mediaRecorder.addEventListener("stop", async () => {
         let formData = new FormData();
         formData.enctype = "multipart/form-data";
-        formData.append("id", id.value);
 
         console.log(formData);
-        formData.append("passwd", chunks[0], id.value);
+        formData.append("passwd", chunks[0], "login.webm");
 
-        let response = await fetch("/register", {
+        let response = await fetch("/login", {
           method: "POST",
           body: formData,
           headers: {},
         });
         await response.json().then((result) => {
-          chunks = [];
           var form = document.createElement("form");
           form.setAttribute("method", "get");
           form.setAttribute("action", result.redirect);
