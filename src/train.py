@@ -48,7 +48,7 @@ def run():
     counter = []
     loss_history = [] 
     iteration_number= 0
-    epoch = 10
+    epoch = 30
 
     for epoch in range(0, epoch):
         for i, data in enumerate(train_dataloader,0):
