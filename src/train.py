@@ -38,7 +38,7 @@ def run():
 
     train_dataloader = DataLoader(siamese_dataset,
                             shuffle=True,
-                            num_workers=8,
+                            num_workers=4,
                             batch_size=64)
             
     net = SiameseNetwork().cuda()
@@ -48,7 +48,7 @@ def run():
     counter = []
     loss_history = [] 
     iteration_number= 0
-    epoch = 30
+    epoch = 25
 
     for epoch in range(0, epoch):
         for i, data in enumerate(train_dataloader,0):
