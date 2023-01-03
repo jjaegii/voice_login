@@ -41,9 +41,14 @@ if (navigator.mediaDevices) {
           headers: {},
         });
         await response.json().then((result) => {
-          var form = document.createElement("form");
-          form.setAttribute("method", "get");
-          form.setAttribute("action", result.redirect);
+          let form = document.createElement("form");
+          form.action = result.redirect;
+          form.method = "post";
+          let input = document.createElement("input");
+          input.type = "hidden";
+          input.name = "who";
+          input.value = result.who;
+          form.appendChild(input);
           document.body.appendChild(form);
           form.submit();
         });
