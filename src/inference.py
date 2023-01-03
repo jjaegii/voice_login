@@ -49,10 +49,11 @@ def inference(img, dataloader):
         # if euclidean_distance.item() < 1.0:
         #     print(data_label + " : " + str(euclidean_distance.item()))
             # 유클리디안 거리가 가장 짧은 애로 바꿔줘야함
+    return person
 
 def run(img_path):
     load_model()
     dataloader = load_dataset()
     img = preprocessing(img_path)
-    inference(img, dataloader)
-
+    who, _ = inference(img, dataloader)
+    return who
