@@ -12,7 +12,8 @@ if (navigator.mediaDevices) {
     .getUserMedia(constraints)
     .then((stream) => {
       const mediaRecorder = new MediaRecorder(stream);
-      const chunks = [];
+      let chunks = [];
+      let count = 0;
 
       record.addEventListener("click", () => {
         modal.hidden = false;
@@ -26,38 +27,41 @@ if (navigator.mediaDevices) {
         mediaRecorder.stop();
         console.log("녹음 끝");
         console.log(mediaRecorder.state);
+        count++;
+        if (count == 3) {
+          register_btn.disabled = false;
+          record.disabled = true;
+        } else {
+          record.innerText = count + 1 + "차 녹음";
+        }
       });
 
       mediaRecorder.addEventListener("dataavailable", (event) => {
         chunks.push(event.data);
       });
 
-      mediaRecorder.addEventListener("stop", () => {
+      mediaRecorder.addEventListener("stop", async () => {
         console.log("id : " + id.value);
         console.log("chunk : " + chunks[0]);
         // console.log(Object.keys(chunks[0]));
-      });
-
-      register_btn.addEventListener("click", async () => {
         let formData = new FormData();
         formData.enctype = "multipart/form-data";
-        formData.append("id", id.value);
-
-        console.log(formData);
+        // formData.append("id", id.value);
         formData.append("passwd", chunks[0], id.value + ".webm");
+        console.log(formData);
 
-        let response = await fetch("/register", {
+        await fetch("/record", {
           method: "POST",
           body: formData,
-          headers: {},
-        });
-        await response.json().then((result) => {
-          var form = document.createElement("form");
-          form.setAttribute("method", "get");
-          form.setAttribute("action", result.redirect);
-          document.body.appendChild(form);
-          form.submit();
-        });
+        }).then((chunks = []));
+      });
+
+      register_btn.addEventListener("click", () => {
+        let form = document.createElement("form");
+        form.action = "/register";
+        form.method = "get";
+        document.body.appendChild(form);
+        form.submit();
       });
     })
     .catch((err) => {
