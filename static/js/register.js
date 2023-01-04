@@ -59,7 +59,7 @@ if (navigator.mediaDevices) {
       register_btn.addEventListener("click", () => {
         let form = document.createElement("form");
         form.action = "/register";
-        form.method = "get";
+        form.method = "POST";
         document.body.appendChild(form);
         form.submit();
       });
