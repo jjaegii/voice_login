@@ -5,28 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>로그인</title>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/body.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/modal.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/btn.css')}}"
+    />
   </head>
   <body align="center">
+    <h1>음성 회원가입/로그인</h1>
     <form action="/register_page">
-      <input type="submit" value="회원가입" />
+      <input type="submit" value="회원가입" class="button" />
     </form>
-    <button id="login">Login</button>
     <p></p>
-    <div
-      style="height: 200px; width: 300px; background-color: aqua; margin: auto"
-      id="modal"
-      hidden
-    >
-      <p></p>
+    <button id="login" class="button">Login</button>
+    <p></p>
+    <div id="modal" hidden>
       듣는중입니다. 말해주세요.
-      <p></p>
       <img
         src="{{url_for('static', filename='img/mic.png')}}"
         alt="마이크아이콘"
-        style="height: 50%"
       />
       <p></p>
-      <button id="complete">완료</button>
+      <button id="complete" class="button">완료</button>
     </div>
   </body>
   <script src="{{url_for('static', filename='js/login.js')}}"></script>

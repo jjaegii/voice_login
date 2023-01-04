@@ -5,38 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/body.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/modal.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/btn.css')}}"
+    />
   </head>
   <body align="center">
-    <table border="1">
+    <table border="1" align="center">
       <tr>
         <th>아이디</th>
         <td><input type="text" id="id" name="id" /></td>
       </tr>
       <tr>
         <th>비밀번호</th>
-        <td><button type="button" id="record">1차 녹음</button></td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <input type="button" value="회원가입" id="register_btn" disabled />
+        <td>
+          <button type="button" id="record" class="button">1차 녹음</button>
         </td>
       </tr>
     </table>
-    <div
-      style="height: 200px; width: 300px; background-color: aqua; margin: auto"
-      id="modal"
-      hidden
-    >
+    <p></p>
+    <input
+      type="button"
+      value="회원가입"
+      id="register_btn"
+      class="button"
+      disabled
+    />
+    <div id="modal" hidden>
       <p></p>
       듣는중입니다. 말해주세요.
       <p></p>
       <img
         src="{{url_for('static', filename='img/mic.png')}}"
         alt="마이크아이콘"
-        style="height: 50%"
       />
       <p></p>
-      <button id="complete">완료</button>
+      <button id="complete" class="button">완료</button>
     </div>
   </body>
   <script src="{{url_for('static', filename='js/register.js')}}"></script>
