@@ -60,7 +60,7 @@ def success():
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
-    if not session['username']:
+    if not session:
         return render_template('403.html')
     session.pop('username', None)
     return redirect('/')
