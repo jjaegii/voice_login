@@ -10,14 +10,17 @@ SOUND_FOLDER = 'sounds'
 app = Flask(__name__)
 app.secret_key = 'UR_SECRET_KEY'
 
+# 메인 페이지
 @app.route('/')
 def login_page():
     return render_template('login.html')
 
+# 회원가입 페이지
 @app.route('/register_page')
 def register_page():
     return render_template('register_page.html')
 
+# 회원가입시 녹음된 wav 파일 blob형태로 받음 
 @app.route('/record', methods=['POST'])
 def record():
     f = request.files['passwd']
@@ -31,13 +34,13 @@ def record():
     # sql.insert(f.filename.split('.')[0], file_path + '/2d+fourier.png')
     return ('', 204)
 
+# 회원가입 버튼 클릭시 
 @app.route('/register', methods=['POST'])
 def register():
     t1 = threading.Thread(target=train.run)
     t1.start()
     return redirect('/')
 
-# https://blogair.tistory.com/165 로그인 성공 시 세션 사용
 @app.route('/login', methods=['POST'])
 def login():
     f = request.files['passwd']
