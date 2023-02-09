@@ -99,8 +99,9 @@ def run(wavfile, path):
     global SOUND_FOLDER
     SOUND_FOLDER = path
     y, sr = librosa.load(os.path.join(SOUND_FOLDER, wavfile))
-    # path_2d = convert2D(wavfile, y, sr)
-    # path_fourier = convertFourier(wavfile, y)
+    # img_path = convert2D(wavfile, y, sr)
+    # img_path = convertFourier(wavfile, y)
     # img_path = merge(wavfile, path_2d, path_fourier)
     # img_path = mfcc(wavfile, y, sr)
-    return mel_specto(wavfile, y, sr)
+    img_path = mel_specto(wavfile, y, sr)
+    return img_path
