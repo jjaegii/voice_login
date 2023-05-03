@@ -36,5 +36,5 @@ six==1.16.0
 soundfile==0.11.0
 threadpoolctl==3.1.0
 urllib3==1.26.13
-Werkzeug==2.2.2
+Werkzeug==2.2.3
 zipp==3.11.0
